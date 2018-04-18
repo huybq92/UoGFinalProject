@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -12,21 +13,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class MainActivity extends AppCompatActivity {
 
-    // Views declarations
+    // Variables
     private Toolbar toolbar;
     private MenuItem searchItem;
     private SearchView searchBar;
     private SearchManager searchManager;
     private FloatingActionButton fab;
+
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+
+    static FirebaseDatabase database;
+    static FirebaseAuth auth;
+    static FirebaseUser user;
+
     private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
 
     // Listener for selecting items of bottom navigation bar
@@ -75,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     if (!isCurrentFragment(3)) {
                         currentFragmentId = 3;
 
-                        //Hide the searchbar
+                        //Hide the searchbar in Menu
                         searchBar.setVisibility(View.GONE);
 
                         //Replace with the new fragment
@@ -106,16 +122,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //###################
-//##### METHODS #####
-//###################
     @Override
     // DEFAULT: invoked to load UI views when app first run
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Check if the app is first opened by using a SharedPreferences variable
+        // get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        //get current signed-in user
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         // Search Bar configuration
         searchBar = (SearchView) findViewById(R.id.searchBar);
@@ -137,6 +153,33 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         //fragmentTransaction.add(R.id.activity_main_content, new HomeFragment());
         fragmentTransaction.commit();
+
+        /*
+        // Retrieve an instance of Firebase database
+        database = FirebaseDatabase.getInstance();
+        // reference the location you want to write to.
+        DatabaseReference myRef = database.getReference("message");
+        // Write a message to the Firebase database
+        myRef.setValue("Hello, World!");
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                //Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        */
+
     }
 
     // Check if the current fragment is the one that user clicks on the Bottom Navigation View
