@@ -37,5 +37,16 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+
+    <!-- REFERENCE:
+    https://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/
+    -->
+    <string name="activity_sell_txt_label">What you wanna sell?</string>
+    <string name="activity_sell_edit_name">Item name</string>
+    <string name="activity_sell_edit_description">Description</string>
+    <string name="activity_sell_edit_location">Location</string>
+    <string name="activity_sell_btn_submit">Sell</string>
+
+
 </resources>
 

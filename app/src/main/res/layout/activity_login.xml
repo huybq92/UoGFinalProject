@@ -6,8 +6,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.huybq.uog_finalproject.LoginActivity">
 
-
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -40,7 +40,9 @@
         <activity
             android:name=".ResetPasswordActivity"
             android:label="@string/app_name" />
-
+        <activity
+            android:name=".SellActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

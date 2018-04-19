@@ -3,9 +3,7 @@ package com.example.huybq.uog_finalproject;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,11 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    static FirebaseDatabase database;
-    static FirebaseAuth auth;
-    static FirebaseUser user;
+    //FirebaseDatabase database;
+    //FirebaseAuth auth;
+    //FirebaseUser user;
 
     private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
 
@@ -129,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // get firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        //auth = FirebaseAuth.getInstance();
         //get current signed-in user
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        //user = FirebaseAuth.getInstance().getCurrentUser();
 
         // Search Bar configuration
         searchBar = (SearchView) findViewById(R.id.searchBar);
@@ -156,11 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         // Retrieve an instance of Firebase database
-        database = FirebaseDatabase.getInstance();
+        //database = FirebaseDatabase.getInstance();
         // reference the location you want to write to.
-        DatabaseReference myRef = database.getReference("message");
-        // Write a message to the Firebase database
-        myRef.setValue("Hello, World!");
+        //DatabaseReference myRef = database.getReference("message");
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -169,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                //Log.d(TAG, "Value is: " + value);
             }
 
             @Override
@@ -180,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
         });
         */
 
+        //database = FirebaseDatabase.getInstance();
+        //DatabaseReference ref = database.getReference(); // root node
+        //Map<String, Item> item = new HashMap<>();
+        //item.put("222222222222", new Item("test", "test", "test", "test"));
     }
 
     // Check if the current fragment is the one that user clicks on the Bottom Navigation View
