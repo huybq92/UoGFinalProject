@@ -32,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    //FirebaseDatabase database;
-    //FirebaseAuth auth;
-    //FirebaseUser user;
-
     private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
 
     // Listener for selecting items of bottom navigation bar
@@ -121,11 +117,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // get firebase auth instance
-        //auth = FirebaseAuth.getInstance();
-        //get current signed-in user
-        //user = FirebaseAuth.getInstance().getCurrentUser();
-
         // Search Bar configuration
         searchBar = (SearchView) findViewById(R.id.searchBar);
         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE); //set the searchable configuration
@@ -144,14 +135,10 @@ public class MainActivity extends AppCompatActivity {
         // Get fragment manager from this Activity to manage the changing of fragments
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.add(R.id.activity_main_content, new HomeFragment());
+        fragmentTransaction.add(R.id.activity_main_content, new HomeFragment());
         fragmentTransaction.commit();
 
         /*
-        // Retrieve an instance of Firebase database
-        //database = FirebaseDatabase.getInstance();
-        // reference the location you want to write to.
-        //DatabaseReference myRef = database.getReference("message");
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {

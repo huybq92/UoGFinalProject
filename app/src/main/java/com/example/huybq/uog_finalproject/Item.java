@@ -10,14 +10,14 @@ public class Item {
     public String name;
     public String description;
     public String location;
-    public String[] images;
+    public String images;
 
     // Default constructor required for calls to
     // DataSnapshot.getValue(User.class)
     public Item() {
     }
 
-    public Item(String userId, String name, String description, String location, String[] images) {
+    public Item(String userId, String name, String description, String location, String images) {
         //this.itemId = itemId;
         this.userId = userId;
         this.name = name;

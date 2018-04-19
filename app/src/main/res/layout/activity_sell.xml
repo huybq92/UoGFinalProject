@@ -67,6 +67,24 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:id="@+id/activity_sell_txt_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:text="@string/activity_sell_txt_photo"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/activity_sell_btn_photo"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/activity_sell_btn_photo"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/activity_sell_btn_submit"
             style="?android:textAppearanceSmall"

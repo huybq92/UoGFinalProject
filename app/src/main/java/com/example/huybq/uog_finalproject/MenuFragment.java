@@ -96,8 +96,8 @@ public class MenuFragment extends Fragment {
                         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
                         break;
                     case "Sell stuffs":
+                        getActivity().finish();
                         startActivity(new Intent(getActivity(), SellActivity.class));
-                        //getActivity().finish();
                         break;
                     case "Log out":
                         FirebaseAuth.getInstance().signOut(); //sign out Firebase

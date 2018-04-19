@@ -42,9 +42,11 @@
     https://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/
     -->
     <string name="activity_sell_txt_label">What you wanna sell?</string>
+    <string name="activity_sell_txt_photo"></string>
     <string name="activity_sell_edit_name">Item name</string>
     <string name="activity_sell_edit_description">Description</string>
     <string name="activity_sell_edit_location">Location</string>
+    <string name="activity_sell_btn_photo">Photo</string>
     <string name="activity_sell_btn_submit">Sell</string>
 
 
