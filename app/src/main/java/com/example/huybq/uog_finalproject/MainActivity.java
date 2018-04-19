@@ -37,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
 
+    // contains all the item object that will be displayed in Recycler View
     public static List<Item> itemList = new ArrayList<>();
+
+    // contains the current selected item object.
+    // accessed by Item Activity to display item info.
+    public static Item selectedItem = new Item();
 
     // Listener for selecting items of bottom navigation bar
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

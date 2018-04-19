@@ -1,6 +1,7 @@
 package com.example.huybq.uog_finalproject;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.Map.Entry;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 // REFERENCE: https://www.androidhive.info/2016/01/android-working-with-recycler-view/
@@ -46,6 +45,22 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
+
+        // listener for recycler view
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                // save the item object that user click on
+                MainActivity.selectedItem = MainActivity.itemList.get(position);
+                //Toast.makeText(getActivity(), MainActivity.selectedItem.location + " is selected!", Toast.LENGTH_SHORT).show();
+                // start Item Activity
+                startActivity(new Intent(getActivity(), ItemActivity.class));
+                // do Not finished() Main Activity here to preserve its static variables
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
         prepareItemData();
 
