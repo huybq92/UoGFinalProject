@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Item {
 
-    //public String itemId;
+    public String itemId;
     public String userId;
     public String name;
     public String description;
@@ -17,20 +17,12 @@ public class Item {
     public Item() {
     }
 
-    public Item(String userId, String name, String description, String location, String images) {
-        //this.itemId = itemId;
+    public Item(String itemId, String userId, String name, String description, String location, String images) {
+        this.itemId = itemId;
         this.userId = userId;
         this.name = name;
         this.description = description;
         this.location = location;
         this.images = images;
-    }
-
-    public Item(String userId, String name, String description, String location) {
-        //this.itemId = itemId;
-        this.userId = userId;
-        this.name = name;
-        this.description = description;
-        this.location = location;
     }
 }

@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     // Variables
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
 
     private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
+
+    public static List<Item> itemList = new ArrayList<>();
 
     // Listener for selecting items of bottom navigation bar
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -58,27 +63,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
 
-                // When user tap Categories button
-                case R.id.navigation_dashboard:
-                    //Check currentFragment
-                    if (!isCurrentFragment(2)) {
-                        currentFragmentId = 2;
-
-                        // Make the searchbar visible
-                        searchBar.setVisibility(View.VISIBLE);
-
-                        //Replace with the new fragment
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.activity_main_content, new CategoryFragment());
-                        fragmentTransaction.commit();
-                    }
-                    return true;
-
                 //When user tap Menu button
                 case R.id.navigation_menu:
                     //Check currentFragment
-                    if (!isCurrentFragment(3)) {
-                        currentFragmentId = 3;
+                    if (!isCurrentFragment(2)) {
+                        currentFragmentId = 2;
 
                         //Hide the searchbar in Menu
                         searchBar.setVisibility(View.GONE);
@@ -137,30 +126,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activity_main_content, new HomeFragment());
         fragmentTransaction.commit();
-
-        /*
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                //Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-        */
-
-        //database = FirebaseDatabase.getInstance();
-        //DatabaseReference ref = database.getReference(); // root node
-        //Map<String, Item> item = new HashMap<>();
-        //item.put("222222222222", new Item("test", "test", "test", "test"));
     }
 
     // Check if the current fragment is the one that user clicks on the Bottom Navigation View

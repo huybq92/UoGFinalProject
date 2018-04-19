@@ -125,7 +125,7 @@ public class SellActivity extends AppCompatActivity{
 
                             // get the string of photo URL
                             photo_url = taskSnapshot.getDownloadUrl().toString();
-                            mFirebaseDatabase.child(itemId).setValue(new Item(userId, name, desc, location, photo_url));
+                            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
 
                             Toast.makeText(getApplicationContext(), "uploaded successfully", Toast.LENGTH_SHORT).show();
                             finish();
@@ -149,7 +149,10 @@ public class SellActivity extends AppCompatActivity{
                     });
         } else {
             photo_url = "";
-            mFirebaseDatabase.child(itemId).setValue(new Item(userId, name, desc, location, photo_url));
+            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
+            Toast.makeText(getApplicationContext(), "uploaded successfully", Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
 
