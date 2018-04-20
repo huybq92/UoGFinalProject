@@ -37,9 +37,12 @@ public class HomeFragment extends Fragment {
         // Default initiation to inflate the views
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
+        // need to prepare item data before load it into recycler view
         mAdapter = new ItemAdapter(MainActivity.itemList);
+        prepareItemData();
+
+        // initiate recycler view and set it up
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -62,11 +65,11 @@ public class HomeFragment extends Fragment {
             }
         }));
 
-        prepareItemData();
-
         return view;
     }
 
+    // retrieve data from the database
+    // and finally save all data to MainActivity.itemList<Item>
     private void prepareItemData() {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("item");
@@ -83,10 +86,12 @@ public class HomeFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
         mAdapter.notifyDataSetChanged();
     }
 
+    // call by prepareItemData().
+    // to iterate through the HashMap containing all the data
+    // fetched from the Database, then add to an array of Item object
     private void collectItems(Map<String,Object> item) {
         Item item2;
         // clear the list first
@@ -94,7 +99,13 @@ public class HomeFragment extends Fragment {
         //iterate through each item, ignore itemId
         for (Map.Entry<String, Object> entry : item.entrySet()) {
             Map singleItem = (Map) entry.getValue();
-            item2 = new Item(entry.getKey(), singleItem.get("userId").toString(), singleItem.get("name").toString(), singleItem.get("description").toString(), singleItem.get("location").toString(), singleItem.get("images").toString());
+            item2 = new Item(entry.getKey(), singleItem.get("userId").toString(),
+                                                singleItem.get("name").toString(),
+                                                singleItem.get("description").toString(),
+                                                singleItem.get("location").toString(),
+                                                singleItem.get("images").toString(),
+                                                singleItem.get("username").toString(),
+                                                singleItem.get("userPhoto").toString());
             MainActivity.itemList.add(item2);
         }
     }

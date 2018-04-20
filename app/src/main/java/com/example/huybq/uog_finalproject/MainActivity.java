@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -16,10 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     // contains all the item object that will be displayed in Recycler View
     public static List<Item> itemList = new ArrayList<>();
 
-    // contains the current selected item object.
-    // accessed by Item Activity to display item info.
+    // contains the current selected item object that will be used
+    // to display in Item Activity.
     public static Item selectedItem = new Item();
 
     // Listener for selecting items of bottom navigation bar
@@ -102,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener fabClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+            // start CartActivity
+            startActivity(new Intent(getApplicationContext(), CartActivity.class));
         }
     };
 

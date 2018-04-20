@@ -40,7 +40,7 @@ public class SellActivity extends AppCompatActivity{
     private String photo_url; // file path in the Firebase storage
     private static final int PICK_IMAGE_REQUEST = 234; //a constant to track the file chooser intent
     public final String STORAGE_PATH_UPLOADS = "itemphoto/";
-    String userId;
+    String userId, username, userPhoto;
     String name;
     String desc;
     String location;
@@ -69,6 +69,8 @@ public class SellActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // In real apps this Uid should be fetched by implementing firebase auth
                 userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                userPhoto = "https://firebasestorage.googleapis.com/v0/b/uogfinalproject-fe01a.appspot.com/o/misc%2Fno-avatar.png?alt=media&token=055b829c-752e-46b3-8cfe-b4bbcef56d6c";
                 name = inputName.getText().toString();
                 desc = inputDesc.getText().toString();
                 location = inputLocation.getText().toString();
@@ -125,7 +127,7 @@ public class SellActivity extends AppCompatActivity{
 
                             // get the string of photo URL on the Firebase Storage
                             photo_url = taskSnapshot.getDownloadUrl().toString();
-                            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
+                            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url, username, userPhoto));
 
                             Toast.makeText(getApplicationContext(), "uploaded successfully", Toast.LENGTH_SHORT).show();
                             finish();
@@ -151,7 +153,7 @@ public class SellActivity extends AppCompatActivity{
             // no photo selected
             // then use a default photo (no_photo image)
             photo_url = "https://firebasestorage.googleapis.com/v0/b/uogfinalproject-fe01a.appspot.com/o/misc%2F300px-No_image_available.svg.png?alt=media&token=d1179b2a-523f-46d0-8b20-47815ecffc8f";
-            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
+            mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url, username, userPhoto));
             Toast.makeText(getApplicationContext(), "uploaded successfully", Toast.LENGTH_SHORT).show();
             finish();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
