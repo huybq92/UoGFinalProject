@@ -19,13 +19,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnFavorite;
     private TextView txtName, txtDesc, txtLocation, txtUserId;
     private ImageView imageView;
+    private String test; // null string to test
 
-    //uri to store file
-    private Uri filePath;
-
-    //firebase objects
-    private StorageReference httpsReference;
-    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +38,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         txtLocation.setText("Location: \n" + MainActivity.selectedItem.location);
         txtUserId = (TextView) findViewById(R.id.activity_item_txt_userId);
         txtUserId.setText("Item Code: \n" + MainActivity.selectedItem.itemId);
-
-        //Toast.makeText(getApplicationContext(), MainActivity.selectedItem.images, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),test,Toast.LENGTH_SHORT).show();
 
         // load the photo
         // REFERENCE: https://stackoverflow.com/questions/5776851/load-image-from-url
-        // check if photo URL exists
-        if (MainActivity.selectedItem.images != "" && MainActivity.selectedItem.images != null) {
-            new DownloadImageTask(imageView).execute(MainActivity.selectedItem.images);
-        }
-        // get reference to photo file in storage
-        // check if URL is null or not
-        //if (MainActivity.selectedItem.images != "" || MainActivity.selectedItem.images != null) {
-        //    httpsReference  = FirebaseStorage.getInstance().getReference(MainActivity.selectedItem.images);
-        //}
+        new DownloadImageTask(imageView).execute(MainActivity.selectedItem.images);
+
+        // set button listeners
         btnCart.setOnClickListener(this);
         btnFavorite.setOnClickListener(this);
     }

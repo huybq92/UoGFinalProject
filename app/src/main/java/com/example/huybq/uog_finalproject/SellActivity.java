@@ -102,7 +102,7 @@ public class SellActivity extends AppCompatActivity{
     // method to upload photo to storage
     private void createItem() {
 
-        //checking if file is available
+        // check if user has selected a photo or not
         if (filePath != null) {
             //displaying progress dialog while image is uploading
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -123,7 +123,7 @@ public class SellActivity extends AppCompatActivity{
                             // dismissing the progress dialog
                             progressDialog.dismiss();
 
-                            // get the string of photo URL
+                            // get the string of photo URL on the Firebase Storage
                             photo_url = taskSnapshot.getDownloadUrl().toString();
                             mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
 
@@ -148,7 +148,9 @@ public class SellActivity extends AppCompatActivity{
                         }
                     });
         } else {
-            photo_url = "";
+            // no photo selected
+            // then use a default photo (no_photo image)
+            photo_url = "https://firebasestorage.googleapis.com/v0/b/uogfinalproject-fe01a.appspot.com/o/misc%2F300px-No_image_available.svg.png?alt=media&token=d1179b2a-523f-46d0-8b20-47815ecffc8f";
             mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url));
             Toast.makeText(getApplicationContext(), "uploaded successfully", Toast.LENGTH_SHORT).show();
             finish();

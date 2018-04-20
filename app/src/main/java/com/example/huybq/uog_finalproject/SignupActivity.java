@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 //REFERENCE:
 //https://www.androidhive.info/2016/06/android-getting-started-firebase-simple-login-registration-auth/
@@ -23,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
+    private DatabaseReference ref;
     private FirebaseAuth auth;
 
     @Override
@@ -30,8 +33,9 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //Get Firebase auth instance
+        //Get Firebase instance
         auth = FirebaseAuth.getInstance();
+        ref = FirebaseDatabase.getInstance().getReference("cart"); // refere to node "cart" under root node
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -96,7 +100,6 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
             }
         });
     }

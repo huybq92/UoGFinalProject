@@ -21,6 +21,12 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/activity_item_txt_userId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
             android:id="@+id/activity_item_txt_desc"
             android:layout_width="match_parent"
             android:layout_height="96dp"
@@ -35,11 +41,6 @@
             android:gravity="center_vertical"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/activity_item_txt_userId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
         <ImageView
             android:id="@+id/item_imageview"
@@ -50,20 +51,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/activity_item_btn_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@color/colorAccent"
                 android:text="Add to Cart" />
 
             <Button
                 android:id="@+id/activity_item_btn_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@color/colorAccent"
                 android:text="Add to favorite" />
 
         </LinearLayout>

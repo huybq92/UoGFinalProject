@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,13 +58,12 @@ public class MenuFragment extends Fragment {
         // to determine the menu items
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            //Toast.makeText(getActivity(), "no login", Toast.LENGTH_SHORT).show();
             arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.fragment_menu_listview_rowitem, R.id.fragment_menu_listview_rowitem_textview, menu_items);
         } else {
-            //Toast.makeText(getActivity(), "login", Toast.LENGTH_SHORT).show();
             arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.fragment_menu_listview_rowitem, R.id.fragment_menu_listview_rowitem_textview, menu_items_after_login);
         }
 
+        // Initiate views
         listMenu = (ListView) view.findViewById(R.id.fragment_menu_list);
         listMenu.setAdapter(arrayAdapter);
         listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -110,22 +108,5 @@ public class MenuFragment extends Fragment {
         });
 
         return view;
-    }
-
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainActivity.auth.addAuthStateListener(authListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (authListener != null) {
-            MainActivity.auth.removeAuthStateListener(authListener);
-        }
-    }
-    */
-// end of class
-}
+    } // end of onCreate()
+}// end of class

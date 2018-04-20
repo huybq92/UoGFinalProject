@@ -23,13 +23,18 @@
             <meta-data android:name="android.app.default_searchable" android:value=".SearchableActivity" />
         </activity>
 
-        <activity android:name=".SearchableActivity" >
+        <activity android:name=".SearchableActivity"
+            android:parentActivityName="com.example.huybq.uog_finalproject.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.huybq.uog_finalproject.MainActivity" />
         </activity>
 
         <activity

@@ -3,6 +3,7 @@ package com.example.huybq.uog_finalproject;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         // Search Bar configuration
         searchBar = (SearchView) findViewById(R.id.searchBar);
         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE); //set the searchable configuration
-        //searchBar.setSearchableInfo(searchManager.getSearchableInfo( new ComponentName(this, SearchableActivity.class)));
+        searchBar.setSearchableInfo(searchManager.getSearchableInfo( new ComponentName(this, SearchableActivity.class)));
         searchBar.setOnClickListener(searchBarSelectedListener); // make the searchbar react when user tap it
         searchBar.setImeOptions(EditorInfo.IME_ACTION_SEARCH); //change Return key of the keyboard to Search key
 
