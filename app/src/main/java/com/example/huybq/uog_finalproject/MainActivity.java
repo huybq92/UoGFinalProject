@@ -1,7 +1,12 @@
 package com.example.huybq.uog_finalproject;
 
+// REFERENCE for sending mail by using Gmail API:
+// https://developers.google.com/gmail/api/quickstart/android
+// https://github.com/QuizSystem/GmailAPI/blob/master/app/src/main/java/com/haynhanh/gmailapi/MainActivity.java
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,7 +21,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchBar;
     private SearchManager searchManager;
     private FloatingActionButton fab;
-
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
-    private int currentFragmentId = 1; // first fragment when the app first run is 'Home'
+    private int currentFragmentId = 1; // first fragment when the app first run is Home Fragment
 
     // contains all the item object that will be displayed in Recycler View
     public static List<Item> itemList = new ArrayList<>();
@@ -135,6 +137,5 @@ public class MainActivity extends AppCompatActivity {
 
     // Check if the current fragment is the one that user clicks on the Bottom Navigation View
     private boolean isCurrentFragment(int id) { return id == currentFragmentId; }
-
-// end of class MainActivity
+    // end of class MainActivity
 }
