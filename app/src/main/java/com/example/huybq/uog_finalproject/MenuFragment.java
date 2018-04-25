@@ -89,12 +89,11 @@ public class MenuFragment extends Fragment {
                         Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
                         break;
                     case "Your favorite":
-                        //startActivity(new Intent(getActivity(), LoginActivity.class));
+                        startActivity(new Intent(getActivity(), FavoriteActivity.class));
                         //getActivity().finish();
-                        Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_SHORT).show();
                         break;
                     case "Sell stuffs":
-                        getActivity().finish();
+                        //getActivity().finish();
                         startActivity(new Intent(getActivity(), SellActivity.class));
                         break;
                     case "Log out":

@@ -15,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -79,12 +82,23 @@ public class SearchableActivity extends AppCompatActivity {
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    // save the item object that user click on
-                    MainActivity.selectedItem = matchedItem.get(position);
 
-                    // start Item Activity
-                    startActivity(new Intent(getApplicationContext(), ItemActivity.class));
+                    // Check for signed-in user
+                    // first need to check if user currnently logging in
                     // do Not finished() Main Activity here to preserve its static variables
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user == null) {
+                        Toast.makeText(getApplicationContext(), "you need to login first", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                    } else {
+                        // save the item object that user click on
+                        MainActivity.selectedItem = matchedItem.get(position);
+
+                        // start Item Activity
+                        startActivity(new Intent(getApplicationContext(), ItemActivity.class));
+                        // do Not finished() Main Activity here to preserve its static variables
+                    }
                 }
                 @Override
                 public void onLongClick(View view, int position) {

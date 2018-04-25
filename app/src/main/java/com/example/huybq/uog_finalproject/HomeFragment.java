@@ -10,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,12 +56,20 @@ public class HomeFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                // save the item object that user click on
-                MainActivity.selectedItem = MainActivity.itemList.get(position);
-                //Toast.makeText(getActivity(), MainActivity.selectedItem.location + " is selected!", Toast.LENGTH_SHORT).show();
-                // start Item Activity
-                startActivity(new Intent(getActivity(), ItemActivity.class));
+                // first need to check if user currnently logging in
                 // do Not finished() Main Activity here to preserve its static variables
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    Toast.makeText(getActivity(), "you need to login first", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+
+                } else {
+                    // save the item object that user click on
+                    MainActivity.selectedItem = MainActivity.itemList.get(position);
+                    //Toast.makeText(getActivity(), MainActivity.selectedItem.location + " is selected!", Toast.LENGTH_SHORT).show();
+                    // start Item Activity
+                    startActivity(new Intent(getActivity(), ItemActivity.class));
+                }
             }
             @Override
             public void onLongClick(View view, int position) {

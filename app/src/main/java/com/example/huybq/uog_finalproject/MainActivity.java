@@ -1,9 +1,5 @@
 package com.example.huybq.uog_finalproject;
 
-// REFERENCE for sending mail by using Gmail API:
-// https://developers.google.com/gmail/api/quickstart/android
-// https://github.com/QuizSystem/GmailAPI/blob/master/app/src/main/java/com/haynhanh/gmailapi/MainActivity.java
-
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -17,10 +13,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +27,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     // Variables
-    private Toolbar toolbar;
-    private MenuItem searchItem;
     private SearchView searchBar;
     private SearchManager searchManager;
     private FloatingActionButton fab;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private int currentFragmentId = 1; // first fragment when the app first run is Home Fragment
+
+    private ProgressDialog statusDialog;
 
     // contains all the item object that will be displayed in Recycler View
     public static List<Item> itemList = new ArrayList<>();
@@ -101,9 +100,16 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener fabClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //Toast.makeText(getApplicationContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
-            // start CartActivity
-            startActivity(new Intent(getApplicationContext(), CartActivity.class));
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null) {
+                Toast.makeText(getApplicationContext(), "you need to login first", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+            } else {
+                // start CartActivity
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+            }
         }
     };
 
@@ -127,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         // FAB configuration
         fab = (FloatingActionButton) findViewById(R.id.fab_cart);
         fab.setOnClickListener(fabClickedListener); //set listener
+
+
 
         // Get fragment manager from this Activity to manage the changing of fragments
         fragmentManager = getFragmentManager();

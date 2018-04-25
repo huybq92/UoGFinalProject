@@ -158,6 +158,7 @@ public class SellActivity extends AppCompatActivity{
             photo_url = "https://firebasestorage.googleapis.com/v0/b/uogfinalproject-fe01a.appspot.com/o/misc%2F300px-No_image_available.svg.png?alt=media&token=d1179b2a-523f-46d0-8b20-47815ecffc8f";
             mFirebaseDatabase.child(itemId).setValue(new Item(itemId, userId, name, desc, location, photo_url, username, userPhoto));
 
+            // send mail
             sendMail();
         }
     }
@@ -173,6 +174,9 @@ public class SellActivity extends AppCompatActivity{
         }
     }
 
+    // this method prepare the mail content and setup,
+    // then create an AsyncTask object to perform sending mail
+    // after success, AsyncTask object will start Main Activity
     public void sendMail() {
         String fromEmail = "huybq92.testmail@gmail.com";
         String fromPassword = "tr*baV4S/?";
