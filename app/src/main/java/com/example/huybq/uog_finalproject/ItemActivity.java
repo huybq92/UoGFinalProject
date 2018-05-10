@@ -35,10 +35,10 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView imageView;
 
     private boolean isInCart;
-    private boolean isInFavorite = false;
+    private boolean isInFavorite;
 
     // database objects
-    DatabaseReference ref;
+    DatabaseReference ref, ref2;
     FirebaseDatabase database;
 
     @Override
@@ -51,6 +51,7 @@ public class ItemActivity extends AppCompatActivity {
         btnFavorite = (Button) findViewById(R.id.activity_item_btn_favorite);
         btnCart.setText("Add to cart");
         isInCart = false;
+        isInFavorite = false;
 
         imageView = (ImageView) findViewById(R.id.item_imageview);
 
@@ -74,12 +75,25 @@ public class ItemActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         // point to the node cart/[userId] in Firebase
         ref = database.getReference("cart").child( FirebaseAuth.getInstance().getCurrentUser().getUid() );
+        ref2 = database.getReference("favorite").child( FirebaseAuth.getInstance().getCurrentUser().getUid() );
         // retrieve data from Firebase
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
                     collectItems((Map<String, Object>) dataSnapshot.getValue());
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    collectItems2((Map<String, Object>) dataSnapshot.getValue());
                 }
             }
             @Override
@@ -122,7 +136,29 @@ public class ItemActivity extends AppCompatActivity {
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showFileChooser(); // select gallery app to pick a photo
+                if (!isInFavorite) {
+                    // if item NOT in favorite list yet, then add it
+                    //ref.child(MainActivity.selectedItem.itemId);
+                    FirebaseDatabase.getInstance().getReference("favorite").child(MainActivity.selectedItem.userId).child(MainActivity.selectedItem.itemId).setValue( new Item(MainActivity.selectedItem.itemId,
+                            MainActivity.selectedItem.userId,
+                            MainActivity.selectedItem.name,
+                            MainActivity.selectedItem.description,
+                            MainActivity.selectedItem.location,
+                            MainActivity.selectedItem.images,
+                            MainActivity.selectedItem.username,
+                            MainActivity.selectedItem.userPhoto) );
+
+                    isInFavorite = true;
+                    btnFavorite.setText("Remove from favorite"); //change button text
+                    Toast.makeText(getApplicationContext(), "Item added to Favorite", Toast.LENGTH_SHORT).show();
+                } else {
+                    // remove from cart
+                    // ref: cart/[userId]/[itemId] => removeValue() at this node
+                    FirebaseDatabase.getInstance().getReference("favorite").child(MainActivity.selectedItem.userId).child(MainActivity.selectedItem.itemId).removeValue();
+                    btnFavorite.setText("Add to favorite");
+                    isInFavorite = false;
+                    Toast.makeText(getApplicationContext(), "Item removed from favorite", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     } // end of onCreate()
@@ -140,6 +176,25 @@ public class ItemActivity extends AppCompatActivity {
             if ( MainActivity.selectedItem.itemId == singleItem.get("itemId").toString() ) {
                 btnCart.setText("Remove from cart");
                 isInCart = true;
+                // stop for loop
+                //return;
+            }
+        }
+    }
+
+    // call by prepareItemData() method.
+    // to iterate through the HashMap containing all the data
+    // fetched from the Database, then add to an array of Item object
+    private void collectItems2(Map<String,Object> item) {
+        Item item2;
+
+        //iterate through each item, ignore itemId
+        for (Map.Entry<String, Object> entry : item.entrySet()) {
+            Map singleItem = (Map) entry.getValue();
+            // compare itemID
+            if ( MainActivity.selectedItem.itemId == singleItem.get("itemId").toString() ) {
+                btnFavorite.setText("Remove from favorite");
+                isInFavorite = true;
                 // stop for loop
                 //return;
             }
